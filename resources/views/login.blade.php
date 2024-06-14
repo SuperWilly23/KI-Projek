@@ -65,21 +65,21 @@
                     <p class="text-center small">Enter your username & kode to login</p>
                   </div>
 
-                  <form method="POST" action="{{ route('login.post') }}">
+                  <form method="POST" action="/login">
                     @csrf
                   <form class="row g-3 needs-validation" novalidate>
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
+                      <label for="yourEmail" class="form-label">Email</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
+                        <input type="text" name="email" class="form-control" id="yourEmail" required>
                         <div class="invalid-feedback">Please enter your username.</div>
                       </div>
                     </div>
 
                     <div class="col-12">
-                      <label for="yourPassword" class="form-label">Kode</label>
-                      <input type="password" name="kode" class="form-control" id="yourPassword" required>
+                      <label for="yourPassword" class="form-label">Password</label>
+                      <input type="password" name="password" class="form-control" id="yourPassword" required>
                       <div class="invalid-feedback">Please enter your kode!</div>
                     </div>
 

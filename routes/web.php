@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PelangganController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/baibai', function () {
     return view('welcome');
 });
-Route::get('home2', function (){
+Route::get('/home2', function () {
     return view('home');
 });
 Route::get('update', function (){
@@ -33,7 +35,7 @@ Route::get('deletepesanan', function (){
 });
 
 
-Route::get('pelanggan',[App\Http\Controllers\PelangganController::class, 'data']);
+Route::get('pelanggan',[PelangganController::class, 'data']);
 Route::get('add',[App\Http\Controllers\PelangganController::class, 'addPelanggan']);
 Route::post('pelanggan',[App\Http\Controllers\PelangganController::class, 'addProcess']);
 
@@ -49,15 +51,15 @@ Route::get('welcome',[App\Http\Controllers\PelangganController::class, 'Welcome'
 Route::get('layanan',[App\Http\Controllers\PelangganController::class, 'layananPelanggan']);
 Route::get('barang',[App\Http\Controllers\PelangganController::class, 'barangPelanggan']);
 
-use App\Http\Controllers\LoginController;
+
 
 // Rute untuk menampilkan form login
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::get('/', [LoginController::class, 'showLoginForm']);
 
 // Rute untuk mengirimkan data login (ID Pegawai)
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 
-
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
 

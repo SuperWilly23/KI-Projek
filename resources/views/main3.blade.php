@@ -349,10 +349,14 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{url('login')}}">
-          <i class="bi bi-backspace-fill"></i><span>Logout</span>
+        <form method="POST" action="{{ route('logout') }}" style="display: none;" id="logout-form">
+            @csrf
+        </form>
+        <a class="nav-link collapsed" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class="bi bi-backspace-fill"></i><span>Logout</span>
         </a>
       </li>
+
     </ul>
 
   </aside>

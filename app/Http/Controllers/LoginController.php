@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 
 class LoginController extends Controller
@@ -17,20 +19,28 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $username = $request->input('username');
-        $kode = $request->input('kode');
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
 
-        $pegawai = DB::table('Pegawai')
-                    ->where('username', $username)
-                    ->where('kode', $kode)
-                    ->first();
-
-        if ($pegawai) {
-            // Jika data pegawai ditemukan, alihkan ke halaman home atau halaman lain yang diinginkan
-            return redirect('home2');
-        } else {
-            // Jika data pegawai tidak ditemukan, kembalikan ke halaman login dengan pesan error
-            return redirect('/login')->with('error', 'Kombinasi Username dan Kode tidak valid');
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/home2'); // Use intended to redirect to the original intended URL
         }
+        // return redirect('/pelanggan');
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
+    }
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }
